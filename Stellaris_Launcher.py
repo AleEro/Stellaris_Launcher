@@ -5,7 +5,7 @@ import sys
 from table_class import Table
 
 
-class AppMainWindow(QtWidgets.QMainWindow):
+class MainWindow(QtWidgets.QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # elements
@@ -20,7 +20,7 @@ class AppMainWindow(QtWidgets.QMainWindow):
         # window proprieties
         self.setMinimumSize(QtCore.QSize(self.width(), self.height()))
         self.setWindowIcon(QtGui.QIcon('img\\ico1.png'))
-        self.setWindowTitle('Stellaris Launcher 2.4 by yohko ')
+        self.setWindowTitle('Stellaris Launcher 2.4 by yohko')
 
         vbox = QtWidgets.QVBoxLayout()
         wdg = QtWidgets.QWidget()
@@ -32,11 +32,13 @@ class AppMainWindow(QtWidgets.QMainWindow):
 
         self.setCentralWidget(wdg)
 
+    def fill_table(self):
+        pass
+
 
 #  на случай если программа запускается из оболочки
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    main = AppMainWindow()
+    main = MainWindow()
     main.show()
     sys.exit(app.exec_())
-

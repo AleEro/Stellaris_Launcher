@@ -1,15 +1,13 @@
-from PyQt5 import QtWidgets, QtCore
+from PyQt5 import QtWidgets, QtCore, QtGui
 
 
 class Table(QtWidgets.QTableWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # elements
-        ab_st = QtWidgets.QAbstractItemView
-        self.setSelectionMode(ab_st.SingleSelection)
-        self.setSelectionBehavior(ab_st.SelectRows)
-        self.setEditTriggers(ab_st.NoEditTriggers)
-        self.setDragDropMode(ab_st.InternalMove)
+        self.setSelectionMode(self.SingleSelection)
+        self.setSelectionBehavior(self.SelectRows)
+        self.setEditTriggers(self.NoEditTriggers)
+        self.setDragDropMode(self.InternalMove)
         self.setDragEnabled(True)
         self.setColumnCount(4)
         self.setRowCount(4)
