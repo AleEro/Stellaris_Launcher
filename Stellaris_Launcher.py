@@ -10,7 +10,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__(*args, **kwargs)
         # elements
         self.table = Table()
-        self.table_dt = TableData()
+        self.table_dt = TableData(self)
 
         play_button = QtWidgets.QPushButton('Play')
         play_button.setFlat(True)
@@ -18,7 +18,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         load_btn = QtWidgets.QPushButton('Load')
         load_btn.setFlat(True)
-        play_button.clicked.connect(self.fill_table)
+        load_btn.clicked.connect(self.table_dt.fill_data)
         settings = QtWidgets.QPushButton('settings')
         settings.setFlat(True)
 
@@ -38,17 +38,21 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.setCentralWidget(wdg)
         self.mods_registry = self.load_fd('mods_registry.json')
-
-    def fill_table(self, a='hello'):
-        print(a)
+        self.get_md()
+        self.table_dt.fill_data()
 
     @staticmethod
     def load_fd(name, dir=r'Stellaris Launcher/'):
-        print('ss')
         with open(dir+name, 'r', encoding='utf_8') as data:
             b = json.load(data)
             # print(b)
         return b
+
+    def get_md(self):
+        for hash, data in self.mods_registry.items():
+            print(data)
+
+        # mod = Mod()
 
 
 #  на случай если программа запускается из оболочки
