@@ -2,13 +2,22 @@ from PyQt5 import QtWidgets, QtCore, QtGui
 
 
 class Mod():
-    def __init__(self, gameRegistryId, source, steamId, displayName, tags, requiredVersion):
+    def __init__(self, mod_hash, gameRegistryId, source, steamId, displayName, tags, requiredVersion,
+                 archivePath, status, Mid, timeUpdated, thumbnailUrl, dirPath, thumbnailPath):
+        self.mod_hash = mod_hash
         self.gameRegistryId = gameRegistryId
         self.source = source
         self.steamId = steamId
         self.displayName = displayName
         self.tags = tags
         self.requiredVersion = requiredVersion
+        self.archivePath = archivePath
+        self.status = status
+        self.Mid = Mid
+        self.timeUpdated = timeUpdated
+        self.thumbnailUrl = thumbnailUrl
+        self.dirPath = dirPath
+        self.thumbnailPath = thumbnailPath
 
 
 class TableData(QtGui.QStandardItemModel):
@@ -44,4 +53,3 @@ class Table(QtWidgets.QTableView):
 
     def on_drop_below(self):
         pass
-

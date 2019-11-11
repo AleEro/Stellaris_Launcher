@@ -1,8 +1,7 @@
-from PyQt5 import QtWidgets
-from PyQt5 import QtCore
-from PyQt5 import QtGui
-import sys, json
-from table_class import Table, TableData
+import sys
+import json
+from PyQt5 import QtWidgets, QtCore, QtGui
+from otherClasses import Table, TableData, Mod
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -11,6 +10,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # elements
         self.table = Table()
         self.table_dt = TableData(self)
+        self.mod_list = []
 
         play_button = QtWidgets.QPushButton('Play')
         play_button.setFlat(True)
@@ -38,7 +38,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.setCentralWidget(wdg)
         self.mods_registry = self.load_fd('mods_registry.json')
-        self.get_md()
+        self.mod_list = self.get_md()
         self.table_dt.fill_data()
 
     @staticmethod
@@ -48,11 +48,27 @@ class MainWindow(QtWidgets.QMainWindow):
             # print(b)
         return b
 
-    def get_md(self):
-        for hash, data in self.mods_registry.items():
-            print(data)
+    # def get_md(self):
+    #     mod_list = []
+    #     for mod_hash, data in self.mods_registry.items():
+    #         print(mod_hash, data)
+    #         mod_l = ['mod_hash', 'gameRegistryId', 'source', 'steamId', 'displayName', 'tags', 'requiredVersion',
+    #                  'archivePath', 'status', 'Mid', 'timeUpdated', 'thumbnailUrl', 'dirPath', 'thumbnailPath']
+    #         # mod_list.append(mod)
+    #
+    #         for j in data:
+    #             for i in mod_l:
+    #                 a = self.pack_u(mod_l[i], data[j])
+    #                 a.append(a)
+    #     return mod_list
 
-        # mod = Mod()
+    @staticmethod
+    def pack_u(par, data):
+        try:
+            par = data[str(f'{par}')]
+        except KeyError:
+            par = ' - '
+        return par
 
 
 #  на случай если программа запускается из оболочки
