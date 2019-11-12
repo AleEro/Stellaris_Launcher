@@ -57,7 +57,6 @@ class MainWindow(QtWidgets.QMainWindow):
     def settg(self):
         for i in self.mod_list:
             print(i.mod_data)
-            print(i.mod_hash)
             for j in i.mod_data:
                 print(j)
 
