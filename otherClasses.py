@@ -1,20 +1,11 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 
-"""
-gameRegistryId 
-source         
-steamId        
-displayName    
-tags           
-requiredVersion
-archivePath    
-status         
-Mid            
-timeUpdated    
-thumbnailUrl   
-dirPath        
-thumbnailPath 
-"""
+
+class Button(QtWidgets.QPushButton):
+    def __init__(self, text='Button', *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setText(text)
+        self.setFlat(True)
 
 
 class Mod():
@@ -38,17 +29,13 @@ class Mod():
         self.thumbnailPath    = mod_data['thumbnailPath']   if 'thumbnailPath'   in mod_data else empt
 
 
-class Button(QtWidgets.QPushButton):
-    def __init__(self, text='Button', *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.setText(text)
-        self.setFlat(True)
-
-
 class TableData(QtGui.QStandardItemModel):
     def __init__(self, root, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.root = root
+        self.setHorizontalHeaderLabels(['gameRegistryId', 'source', 'steamId', 'displayName', 'tags',
+                                        'requiredVersion', 'archivePath', 'status', 'id', 'timeUpdated',
+                                        'thumbnailUrl', 'dirPath', 'thumbnailPath'])
 
     def fill_data(self):
         pass
@@ -65,7 +52,7 @@ class Table(QtWidgets.QTableView):
         self.setSelectionMode(self.SingleSelection)
         self.setSelectionBehavior(self.SelectRows)
         self.setEditTriggers(self.NoEditTriggers)
-        self.setDragDropMode(self.InternalMove)
+        self.setDragDropMode(self.DragOnly)
         self.setDragEnabled(True)
         self.setGridStyle(QtCore.Qt.NoPen)
         self.setShowGrid(False)

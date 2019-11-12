@@ -53,7 +53,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def fill_data(self):
         for i in self.mod_list:
-            # print(i.mod_data)
             c0 = QtGui.QStandardItem(f'{i.gameRegistryId}')
             c1 = QtGui.QStandardItem(f'{i.source}')
             c2 = QtGui.QStandardItem(f'{i.steamId}')
