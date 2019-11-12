@@ -15,10 +15,8 @@ class MainWindow(QtWidgets.QMainWindow):
 
         play_button = Button('Play')
         # play_button.clicked.connect()
-        load_btn = Button('Load')
-        load_btn.clicked.connect(self.table_dt.fill_data)
         settings = Button('settings')
-        settings.clicked.connect(self.settg)
+        # settings.clicked.connect(self.settings)
 
         # window proprieties
         self.setMinimumSize(QtCore.QSize(self.width(), self.height()))
@@ -29,7 +27,6 @@ class MainWindow(QtWidgets.QMainWindow):
         wdg = QtWidgets.QWidget()
 
         vbox.addWidget(self.table)
-        vbox.addWidget(load_btn)
         vbox.addWidget(play_button)
         vbox.addWidget(settings)
         wdg.setLayout(vbox)
@@ -37,7 +34,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setCentralWidget(wdg)
         self.mods_registry = self.load_fd('mods_registry.json')
         self.mod_list = self.get_md()
-        self.table_dt.fill_data()
+        self.fill_data()
 
     @staticmethod
     def load_fd(name, dir=r'Stellaris Launcher/'):
@@ -54,15 +51,23 @@ class MainWindow(QtWidgets.QMainWindow):
             mod_list.append(mod)
         return mod_list
 
-    def settg(self):
+    def fill_data(self):
         for i in self.mod_list:
             # print(i.mod_data)
-            list = []
-            # list_of colums = []
-            for j in i.mod_data:
-                k = QtGui.QStandardItem(f'{i.mod_data[j]}')
-                list.append(k)
-            self.table_dt.appendRow(list)
+            c0 = QtGui.QStandardItem(f'{i.gameRegistryId}')
+            c1 = QtGui.QStandardItem(f'{i.source}')
+            c2 = QtGui.QStandardItem(f'{i.steamId}')
+            c3 = QtGui.QStandardItem(f'{i.displayName}')
+            c4 = QtGui.QStandardItem(f'{i.tags}')
+            c5 = QtGui.QStandardItem(f'{i.requiredVersion}')
+            c6 = QtGui.QStandardItem(f'{i.archivePath}')
+            c7 = QtGui.QStandardItem(f'{i.status}')
+            c8 = QtGui.QStandardItem(f'{i.Mid}')
+            c9 = QtGui.QStandardItem(f'{i.timeUpdated}')
+            c10 = QtGui.QStandardItem(f'{i.thumbnailUrl}')
+            c11 = QtGui.QStandardItem(f'{i.dirPath}')
+            c12 = QtGui.QStandardItem(f'{i.thumbnailPath}')
+            self.table_dt.appendRow([c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12])
         self.table.setModel(self.table_dt)
 
 
