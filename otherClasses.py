@@ -6,6 +6,7 @@ class Mod():
         empt = '-'
         self.mod_hash         = mod_hash
         self.mod_data         = mod_data
+
         self.gameRegistryId   = mod_data['gameRegistryId']  if 'gameRegistryId'  in mod_data else empt
         self.source           = mod_data['source']          if 'source'          in mod_data else empt
         self.steamId          = mod_data['steamId']         if 'steamId'         in mod_data else empt
