@@ -1,7 +1,8 @@
 import sys
 import json
 from PyQt5 import QtWidgets, QtCore, QtGui
-from otherClasses import Table, TableData, Mod
+from otherClasses import (
+    Table, TableData, Mod, Button)
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -12,15 +13,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.table_dt = TableData(self)
         self.mod_list = []
 
-        play_button = QtWidgets.QPushButton('Play')
-        play_button.setFlat(True)
+        play_button = Button('Play')
         # play_button.clicked.connect()
-
-        load_btn = QtWidgets.QPushButton('Load')
-        load_btn.setFlat(True)
+        load_btn = Button('Load')
         load_btn.clicked.connect(self.table_dt.fill_data)
-        settings = QtWidgets.QPushButton('settings')
-        settings.setFlat(True)
+        settings = Button('settings')
+        settings.clicked.connect(self.settg)
 
         # window proprieties
         self.setMinimumSize(QtCore.QSize(self.width(), self.height()))
@@ -43,32 +41,23 @@ class MainWindow(QtWidgets.QMainWindow):
 
     @staticmethod
     def load_fd(name, dir=r'Stellaris Launcher/'):
-        with open(dir+name, 'r', encoding='utf_8') as data:
+        with open(dir + name, 'r', encoding='utf_8') as data:
             b = json.load(data)
             # print(b)
         return b
 
-    # def get_md(self):
-    #     mod_list = []
-    #     for mod_hash, data in self.mods_registry.items():
-    #         print(mod_hash, data)
-    #         mod_l = ['mod_hash', 'gameRegistryId', 'source', 'steamId', 'displayName', 'tags', 'requiredVersion',
-    #                  'archivePath', 'status', 'Mid', 'timeUpdated', 'thumbnailUrl', 'dirPath', 'thumbnailPath']
-    #         # mod_list.append(mod)
-    #
-    #         for j in data:
-    #             for i in mod_l:
-    #                 a = self.pack_u(mod_l[i], data[j])
-    #                 a.append(a)
-    #     return mod_list
+    def get_md(self):
+        mod_list = []
+        for mod_hash, mod_data in self.mods_registry.items():
+            # print(data)
+            mod = Mod(mod_hash, mod_data)
+            mod_list.append(mod)
 
-    @staticmethod
-    def pack_u(par, data):
-        try:
-            par = data[str(f'{par}')]
-        except KeyError:
-            par = ' - '
-        return par
+        return mod_list
+
+    def settg(self):
+        for i in self.mod_list:
+            print(i.tags)
 
 
 #  на случай если программа запускается из оболочки

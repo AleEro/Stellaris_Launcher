@@ -2,28 +2,40 @@ from PyQt5 import QtWidgets, QtCore, QtGui
 
 
 class Mod():
-    def __init__(self, mod_hash, gameRegistryId, source, steamId, displayName, tags, requiredVersion,
-                 archivePath, status, Mid, timeUpdated, thumbnailUrl, dirPath, thumbnailPath):
+    def __init__(self, mod_hash, mod_data):
+        empt = '-'
         self.mod_hash = mod_hash
-        self.gameRegistryId = gameRegistryId
-        self.source = source
-        self.steamId = steamId
-        self.displayName = displayName
-        self.tags = tags
-        self.requiredVersion = requiredVersion
-        self.archivePath = archivePath
-        self.status = status
-        self.Mid = Mid
-        self.timeUpdated = timeUpdated
-        self.thumbnailUrl = thumbnailUrl
-        self.dirPath = dirPath
-        self.thumbnailPath = thumbnailPath
+        self.data = mod_data
+        self.gameRegistryId = mod_data['gameRegistryId'] if 'gameRegistryId' in mod_data else empt
+        self.source = mod_data['source'] if 'source' in mod_data else empt
+        self.steamId = mod_data['steamId'] if 'steamId' in mod_data else empt
+        self.displayName = mod_data['displayName'] if 'displayName' in mod_data else empt
+        self.tags = mod_data['tags'] if 'tags' in mod_data else empt
+
+
+#        self.requiredVersion = requiredVersion
+#        self.archivePath = archivePath
+#        self.status = status
+#        self.Mid = Mid
+#        self.timeUpdated = timeUpdated
+#        self.thumbnailUrl = thumbnailUrl
+#        self.dirPath = dirPath
+#        self.thumbnailPath = thumbnailPath
+
+
+class Button(QtWidgets.QPushButton):
+    def __init__(self, text='Button', *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.setText(text)
+        self.setFlat(True)
 
 
 class TableData(QtGui.QStandardItemModel):
     def __init__(self, root, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.root = root
+        self.setRowCount(6)
+        self.setColumnCount(6)
 
     def fill_data(self):
         pass
@@ -42,7 +54,7 @@ class Table(QtWidgets.QTableView):
         self.setEditTriggers(self.NoEditTriggers)
         self.setDragDropMode(self.InternalMove)
         self.setDragEnabled(True)
-        self.setGridStyle(QtCore.Qt.NoPen)
+        # self.setGridStyle(QtCore.Qt.NoPen)
         self.setShowGrid(False)
 
     def on_drag(self):
