@@ -1,5 +1,21 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 
+"""
+gameRegistryId 
+source         
+steamId        
+displayName    
+tags           
+requiredVersion
+archivePath    
+status         
+Mid            
+timeUpdated    
+thumbnailUrl   
+dirPath        
+thumbnailPath 
+"""
+
 
 class Mod():
     def __init__(self, mod_hash, mod_data):
@@ -33,8 +49,6 @@ class TableData(QtGui.QStandardItemModel):
     def __init__(self, root, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.root = root
-        self.setRowCount(6)
-        self.setColumnCount(6)
 
     def fill_data(self):
         pass
@@ -53,7 +67,7 @@ class Table(QtWidgets.QTableView):
         self.setEditTriggers(self.NoEditTriggers)
         self.setDragDropMode(self.InternalMove)
         self.setDragEnabled(True)
-        # self.setGridStyle(QtCore.Qt.NoPen)
+        self.setGridStyle(QtCore.Qt.NoPen)
         self.setShowGrid(False)
 
     def on_drag(self):

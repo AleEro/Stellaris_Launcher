@@ -56,9 +56,14 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def settg(self):
         for i in self.mod_list:
-            print(i.mod_data)
+            # print(i.mod_data)
+            list = []
+            # list_of colums = []
             for j in i.mod_data:
-                print(j)
+                k = QtGui.QStandardItem(f'{i.mod_data[j]}')
+                list.append(k)
+            self.table_dt.appendRow(list)
+        self.table.setModel(self.table_dt)
 
 
 #  на случай если программа запускается из оболочки
