@@ -52,12 +52,13 @@ class MainWindow(QtWidgets.QMainWindow):
             # print(data)
             mod = Mod(mod_hash, mod_data)
             mod_list.append(mod)
-
         return mod_list
 
     def settg(self):
         for i in self.mod_list:
-            print(i.tags)
+            print(i.mod_data)
+            for j in i.mod_data:
+                print(i.mod_data[j])
 
 
 #  на случай если программа запускается из оболочки
