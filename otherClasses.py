@@ -11,16 +11,14 @@ class Mod():
         self.steamId = mod_data['steamId'] if 'steamId' in mod_data else empt
         self.displayName = mod_data['displayName'] if 'displayName' in mod_data else empt
         self.tags = mod_data['tags'] if 'tags' in mod_data else empt
-
-
-#        self.requiredVersion = requiredVersion
-#        self.archivePath = archivePath
-#        self.status = status
-#        self.Mid = Mid
-#        self.timeUpdated = timeUpdated
-#        self.thumbnailUrl = thumbnailUrl
-#        self.dirPath = dirPath
-#        self.thumbnailPath = thumbnailPath
+        self.requiredVersion = mod_data['requiredVersion'] if 'requiredVersion' in mod_data else empt
+        self.archivePath = mod_data['archivePath'] if 'archivePath' in mod_data else empt
+        self.status = mod_data['status'] if 'status' in mod_data else empt
+        self.Mid = mod_data['Mid'] if 'Mid' in mod_data else empt
+        self.timeUpdated = mod_data['timeUpdated'] if 'timeUpdated' in mod_data else empt
+        self.thumbnailUrl = mod_data['thumbnailUrl'] if 'thumbnailUrl' in mod_data else empt
+        self.dirPath = mod_data['dirPath'] if 'dirPath' in mod_data else empt
+        self.thumbnailPath = mod_data['thumbnailPath'] if 'thumbnailPath' in mod_data else empt
 
 
 class Button(QtWidgets.QPushButton):
