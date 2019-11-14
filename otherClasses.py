@@ -29,19 +29,43 @@ class Mod():
         self.thumbnailPath    = mod_data['thumbnailPath']   if 'thumbnailPath'   in mod_data else empt
 
 
+class TableDataItem(QtGui.QStandardItemModel):
+
+    def dropMimeData(self, data, action, row, col, parent):
+        """
+        Always move the entire row, and don't allow column "shifting"
+        """
+        return super().dropMimeData(data, action, row, 0, parent)
+
+
+class PStyle(QtWidgets.QProxyStyle):
+
+    def drawPrimitive(self, element, option, painter, widget=None):
+        """
+        Draw a line across the entire row rather than just the column
+        we're hovering over.  This may not always work depending on global
+        style - for instance I think it won't work on OSX.
+        """
+        if element == self.PE_IndicatorItemViewItemDrop and not option.rect.isNull():
+            option_new = QtWidgets.QStyleOption(option)
+            option_new.rect.setLeft(0)
+            if widget:
+                option_new.rect.setRight(widget.width())
+            option = option_new
+        super().drawPrimitive(element, option, painter, widget)
+
+
 class TableData(QtGui.QStandardItemModel):
     def __init__(self, root, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.root = root
-        self.setHorizontalHeaderLabels(['gameRegistryId', 'source', 'steamId', 'displayName', 'tags',
+        self.setHorizontalHeaderLabels([
+            'gameRegistryId', 'source', 'steamId', 'displayName', 'tags',
                                         'requiredVersion', 'archivePath', 'status', 'id', 'timeUpdated',
                                         'thumbnailUrl', 'dirPath', 'thumbnailPath'])
 
-    def fill_data(self):
-        pass
-
-    def get_from_data(self):
-        pass
+    def dropMimeData(self, data, action, row, col, parent):
+        return super().dropMimeData(data, action, row, 0, parent)
 
 
 class Table(QtWidgets.QTableView):
@@ -49,19 +73,18 @@ class Table(QtWidgets.QTableView):
         super().__init__(*args, **kwargs)
         self.sim = TableData(self)
         self.setModel(self.sim)
+
+        self.setShowGrid(False)
+        self.setGridStyle(QtCore.Qt.NoPen)
+
         self.setSelectionMode(self.SingleSelection)
         self.setSelectionBehavior(self.SelectRows)
         self.setEditTriggers(self.NoEditTriggers)
-        self.setDragDropMode(self.DragOnly)
+
         self.setDragEnabled(True)
-        self.setGridStyle(QtCore.Qt.NoPen)
-        self.setShowGrid(False)
+        self.setDragDropMode(self.InternalMove)
+        self.setDragDropOverwriteMode(False)
 
-    def on_drag(self):
-        pass
-
-    def on_drop_after(self):
-        pass
-
-    def on_drop_below(self):
-        pass
+        # self.verticalHeader().hide()
+        self.horizontalHeader().hide()
+        self.setStyle(PStyle())

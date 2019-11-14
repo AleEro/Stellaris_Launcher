@@ -66,7 +66,11 @@ class MainWindow(QtWidgets.QMainWindow):
             c10 = QtGui.QStandardItem(f'{i.thumbnailUrl}')
             c11 = QtGui.QStandardItem(f'{i.dirPath}')
             c12 = QtGui.QStandardItem(f'{i.thumbnailPath}')
-            self.table_dt.appendRow([c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12])
+            list = [c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12]
+            for e in list:
+                e.setEditable(False)
+                e.setDropEnabled(False)
+            self.table_dt.appendRow(list)
         self.table.setModel(self.table_dt)
 
 
