@@ -77,7 +77,7 @@ class Table(QtWidgets.QTableView):
         self.setShowGrid(False)
         self.setGridStyle(QtCore.Qt.NoPen)
 
-        self.setSelectionMode(self.SingleSelection)
+        # self.setSelectionMode(self.SingleSelection)
         self.setSelectionBehavior(self.SelectRows)
         self.setEditTriggers(self.NoEditTriggers)
 
@@ -86,5 +86,5 @@ class Table(QtWidgets.QTableView):
         self.setDragDropOverwriteMode(False)
 
         # self.verticalHeader().hide()
-        self.horizontalHeader().hide()
+        # self.horizontalHeader().hide()
         self.setStyle(PStyle())

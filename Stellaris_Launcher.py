@@ -1,8 +1,7 @@
 import sys
 import json
 from PyQt5 import QtWidgets, QtCore, QtGui
-from otherClasses import (
-    Table, TableData, Mod, Button)
+from otherClasses import (Table, TableData, Mod, Button)
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -14,8 +13,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.mod_list = []
 
         play_button = Button('Play')
-        # play_button.clicked.connect()
-        settings = Button('settings')
+        play_button.clicked.connect(self.play_btn)
+        # settings = Button('settings')
         # settings.clicked.connect(self.settings)
 
         # window proprieties
@@ -28,22 +27,27 @@ class MainWindow(QtWidgets.QMainWindow):
 
         vbox.addWidget(self.table)
         vbox.addWidget(play_button)
-        vbox.addWidget(settings)
+        # vbox.addWidget(settings)
         wdg.setLayout(vbox)
 
         self.setCentralWidget(wdg)
         self.mods_registry = self.load_fd('mods_registry.json')
-        self.mod_list = self.get_md()
+        self.game_data = self.load_fd('game_data.json')
+        self.mod_list = self.get_mod_list()
         self.fill_data()
 
     @staticmethod
-    def load_fd(name, dir=r'Stellaris Launcher/'):
-        with open(dir + name, 'r', encoding='utf_8') as data:
-            b = json.load(data)
-            # print(b)
+    def load_fd(name, dir_r=r'Stellaris Launcher/'):
+        try:
+            with open(dir_r + name, 'r', encoding='utf_8') as data:
+                b = json.load(data)
+                # print(b)
+        except FileNotFoundError:
+            with open(dir_r + name, 'w', encoding='utf_8') as data:
+                b = json.load(data)
         return b
 
-    def get_md(self):
+    def get_mod_list(self):
         mod_list = []
         for mod_hash, mod_data in self.mods_registry.items():
             # print(data)
@@ -66,12 +70,15 @@ class MainWindow(QtWidgets.QMainWindow):
             c10 = QtGui.QStandardItem(f'{i.thumbnailUrl}')
             c11 = QtGui.QStandardItem(f'{i.dirPath}')
             c12 = QtGui.QStandardItem(f'{i.thumbnailPath}')
-            list = [c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12]
-            for e in list:
+            list1 = [c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12]
+            for e in list1:
                 e.setEditable(False)
                 e.setDropEnabled(False)
-            self.table_dt.appendRow(list)
+            self.table_dt.appendRow(list1)
         self.table.setModel(self.table_dt)
+
+    def play_btn(self):
+        print('hello')
 
 
 #  на случай если программа запускается из оболочки
